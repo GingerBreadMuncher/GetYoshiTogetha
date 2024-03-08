@@ -3,13 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void LoadSceneByName()
-    {
-        SceneManager.LoadScene("Game");
-    }
+    public void LoadGameScene() { SceneManager.LoadScene("Game"); }
 
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
+    public void LoadMainMenu() { SceneManager.LoadScene("MainMenu"); }
+
+    public void ExitGame() { Application.Quit(); }
 }

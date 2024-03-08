@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<Texture2D> imageTextures;
     [SerializeField] Transform levelSelectPanel;
     [SerializeField] Image levelSelectPrefab;
+    [SerializeField] TMP_Text chooseYoshiText;
+    [SerializeField] Button backButton;
+    [SerializeField] SceneLoader sceneLoader;
     [SerializeField] GameObject winScreen;
 
     List<Transform> pieces;
@@ -38,6 +42,9 @@ public class GameManager : MonoBehaviour
     public void StartGame(Texture2D puzzleTexture)
     {
         levelSelectPanel.gameObject.SetActive(false);
+        chooseYoshiText.gameObject.SetActive(false);
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(sceneLoader.LoadGameScene);
         pieces = new List<Transform>();
         dimensions = GetDimensions(puzzleTexture, difficulty);
         CreatePuzzlePieces(puzzleTexture);
