@@ -5,21 +5,31 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     [Header("Game Elements")]
-    [Range(2, 6)]
-    [SerializeField] int difficulty = 4;
+    [Range(1, 5)]
+    [SerializeField] public int difficulty = Normal;
     [SerializeField] Transform gameHolder;
     [SerializeField] Transform piecePrefab;
     [SerializeField] int piecesCorrect = 0;
+
 
     [Header("UI Elements")]
     [SerializeField] List<Texture2D> imageTextures;
     [SerializeField] Transform levelSelectPanel;
     [SerializeField] Image levelSelectPrefab;
-    [SerializeField] TMP_Text chooseYoshiText;
     [SerializeField] Button backButton;
     [SerializeField] SceneLoader sceneLoader;
     [SerializeField] GameObject winScreen;
+    [SerializeField] GameObject chooseYoshiScreen;
+    [SerializeField] SliderController sliderController;
+
+
+    // Difficulty levels
+    public static int VeryEasy = 2;
+    public static int Easy = 3;
+    public static int Normal = 4;
+    public static int Hard = 5;
 
     List<Transform> pieces;
     Transform draggingPiece = null;
@@ -28,7 +38,6 @@ public class GameManager : MonoBehaviour
     float width;
     float height;
 
-    // Start is called before the first frame update
     void Start()
     {
         foreach (Texture2D texture in imageTextures)
@@ -37,12 +46,13 @@ public class GameManager : MonoBehaviour
             image.sprite = Sprite.Create(texture, new Rect(0,0, texture.width, texture.height), Vector2.zero);
             image.GetComponent<Button>().onClick.AddListener(delegate { StartGame(texture); });
         }
+        difficulty = PlayerPrefs.GetInt("DifficultyLevel", difficulty);
+        sliderController.slider.value = difficulty - 2;
     }
 
     public void StartGame(Texture2D puzzleTexture)
     {
-        levelSelectPanel.gameObject.SetActive(false);
-        chooseYoshiText.gameObject.SetActive(false);
+        chooseYoshiScreen.gameObject.SetActive(false);
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(sceneLoader.LoadGameScene);
         pieces = new List<Transform>();
@@ -163,7 +173,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) 
@@ -192,5 +201,10 @@ public class GameManager : MonoBehaviour
             offset = Vector3.back;
             draggingPiece = null;
         }
+    }
+
+    public void SaveDifficultyLevel()
+    {
+        PlayerPrefs.SetInt("DifficultyLevel", difficulty);
     }
 }
