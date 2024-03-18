@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9ac0772a1cb8f5144a0b6a451539bc62, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -66,8 +66,8 @@ Material:
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
-    - _ColorCutoff: 0.2
-    - _ColorFeathering: 0.33
+    - _ColorCutoff: 0.36
+    - _ColorFeathering: 0.42
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5

@@ -7,6 +7,7 @@ public class SliderController : MonoBehaviour
     public Slider slider;
     GameManager gameManager;
     [SerializeField] TextMeshProUGUI difficultyText;
+    [SerializeField] TextMeshProUGUI difficultySeconds;
 
     void Start()
     {
@@ -28,10 +29,10 @@ public class SliderController : MonoBehaviour
     {
         switch (slider.value)
         {
-            case 0: difficultyText.text = "Brainrot"; break;
-            case 1: difficultyText.text = "Easy"; break;
-            case 2: difficultyText.text = "Normal"; break;
-            case 3: difficultyText.text = "Hardcore"; break;
+            case 0: difficultyText.text = "Brainrot"; difficultySeconds.text = "(10 seconds)"; break;
+            case 1: difficultyText.text = "Easy"; difficultySeconds.text = "(30 seconds)"; break;
+            case 2: difficultyText.text = "Normal"; difficultySeconds.text = "(45 seconds)"; break;
+            case 3: difficultyText.text = "Hardcore"; difficultySeconds.text = "(60 seconds)"; break;
         }
     }
 }
