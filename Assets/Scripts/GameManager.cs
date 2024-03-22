@@ -30,8 +30,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] SliderController sliderController;
     [SerializeField] GameModeSelect gameModeSelect;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI timeElapsedText;
     [SerializeField] TextMeshProUGUI difficultySeconds;
     [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject timeElapsedParent;
     [SerializeField] Camera cam;
 
 
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     float width;
     float height;
     TimeSpan timeRemaining;
+    TimeSpan timeElapsed;
     bool jigsawComplete = false;
     public bool CountdownMode { get; set; }
 
@@ -141,6 +144,7 @@ public class GameManager : MonoBehaviour
             case 5: seconds = 60; break;
         }
         timeRemaining = new TimeSpan(0, 0, seconds);
+        timeElapsed = new TimeSpan(0, 0, 0);
         timerText.text = timeRemaining.ToString(@"hh\:mm\:ss");
         while (timeRemaining.TotalSeconds > 0 && !jigsawComplete)
         {
@@ -148,6 +152,8 @@ public class GameManager : MonoBehaviour
             if (jigsawComplete) { break; }
             timeRemaining = timeRemaining.Add(TimeSpan.FromSeconds(-1));
             timerText.text = timeRemaining.ToString(@"hh\:mm\:ss");
+            timeElapsed = timeElapsed.Add(TimeSpan.FromSeconds(1));
+            timeElapsedText.text = timeElapsed.ToString(@"hh\:mm\:ss");
         }
         if (timeRemaining.TotalSeconds == 0) { GameOver(); }
     }
@@ -219,6 +225,7 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(true);
         playAgainButton.gameObject.SetActive(true);
         if (CountdownMode) { SlideUp(); }
+        timeElapsedParent.gameObject.SetActive(true);
     }
 
     void GameOver()
